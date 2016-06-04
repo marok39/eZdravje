@@ -4,12 +4,15 @@
   <meta charset="utf-8">
   <title>eZdravje :: 4. DN :: OIS 2015/2016</title>
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
+  <link href="knjiznice/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
   <style>
-    body {padding-top: 70px;}
+    body { font-family: 'Open Sans'; padding-top: 70px; }
   </style>
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
   <script src="knjiznice/js/koda.js"></script>
+  <script src="knjiznice/js/d3.min.js"></script>
 </head>
 <body>
 
@@ -22,14 +25,14 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">Status bolnika</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
         <ul class="nav navbar-nav">
           <li><a href="opis.html">Opis ideje</a></li>
           <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
-          <li><a href="#">Generiranje podatkov</a></li>
+          <li><a href="#" onclick="generiraj()">Generiranje podatkov</a></li>
         </ul>
       </div>
     </div>
@@ -39,12 +42,113 @@
   <!-- ZAČETEK: Vsebina aplikacije -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <p class="lead"><strong>TO-DO</strong>: Na tem mestu implementirajte vašo aplikacijo.</p>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+          
+          <!-- Vrstica kjer izberemo bolnika oz. prikazemo vnesen EHR -->
+          <div id="opcije" class="panel-heading">
+            <div class="row">
+              <div class="col-lg-2 col-md-2 col-sm-2"><p class="p1">Izberi bolnika:</p></div>
+              <div class="col-lg-2 col-md-2 col-sm-2"><select class="form-control input-sm" id="izbiraBolnika"><option value=""></option></select></div>
+              <div class="col-lg-2 col-md-2 col-sm-2"><button type="button" class="btn btn-primary btn-block" onclick="prikaziPodatke()">Prikaži</button></div>
+              
+              <div class="col-lg-2 col-md-2 col-sm-2"><p class="p1">Vnos EHR ID:</p></div>
+              <div class="col-lg-2 col-md-2 col-sm-2"><input id="preberiEHR" type="text" class="form-control input-mini"></div>
+              <div class="col-lg-2 col-md-2 col-sm-2"><button type="button" class="btn btn-primary btn-block" onclick="prikaziPodatkeEHR()">Prikaži</button></div>
+            </div>
+            <div class="row">
+               <div class="col-lg-6 col-md-6 col-sm-6"><span id="obvestilo"></span></div>
+            </div>
+          </div>
+          
+        </div>
       </div>
     </div>
+    
+    <!-- Vrstica kjer se pokazejo osnovni podatki -->
+    <div class="row" id="osnova">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading" id="bar">
+            <div class="row">
+              <div class="row"><p class="p2">Osnovni podatki</p></div>
+            </div>
+          </div>
+          
+          <div class="panel-body">
+            <div class="container-fluid">
+              <div class="row-fluid">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12" id="osnovniPodatki"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Vrstica kjer bodo prikazane meritve -->
+    <div class="row" id="meritve">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading" id="bar">
+            <div class="row"><p class="p2">Meritve</p></div>
+          </div>
+          <div class="panel-body">
+            <div class="container-fluid">
+              <div class="row-fluid">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div id="visina" class="col-lg-4 col-md-4 col-sm-4"></div>
+                  <div id="sisTlak" class="col-lg-4 col-md-4 col-sm-4"></div>
+                  <div id="temperatura" class="col-lg-4 col-md-4 col-sm-4"></div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div id="teza" class="col-lg-4 col-md-4 col-sm-4"></div>
+                  <div id="diaTlak" class="col-lg-4 col-md-4 col-sm-4"></div>
+                  <div id="kisik" class="col-lg-4 col-md-4 col-sm-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Vrstica kjer bo Twitter feed in graf krvnega tlaka skozi cas -->
+    <div class="row">
+      <div class="col-sm-6 col-md-6" id="graf">
+        <div class="panel panel-default">
+          <div class="panel-heading" id="bar">
+            <div class="row"><p class="p2">Tlak skozi čas</p></div>
+          </div>
+          <div class="panel-body" id="tlakSkoziCas">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Twitter: zunanji vir, prikaze splosne informacije/napotke glede krvnega tlaka -->
+      <div class="col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0" id="twitter">
+        <div class="panel panel-default">
+          <div class="panel-heading" id="bar">
+            <div class="row"><p class="p2">Twitter</p></div>
+          </div>
+          <div class="panel-body">
+            <div class="container-fluid">
+              <div class="row-fluid">
+                <a class="twitter-timeline" href="https://twitter.com/hashtag/bloodpressure" data-widget-id="739000138845290496"></a>
+                <script>
+                  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
   <!-- KONEC: Vsebina aplikacije -->
-
 </body>
 </html>
