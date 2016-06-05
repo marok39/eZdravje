@@ -215,6 +215,8 @@ function ponastavi() {
 	a.innerHTML = "";
 	a = document.getElementById("teza");
 	a.innerHTML = "";
+	a = document.getElementById("obvestilo");
+	a.innerHTML = "";
 }
 
 // napolni 'okvircke' s podatki bolnika
@@ -280,7 +282,7 @@ function napolni (EHR) {
 			$("#sisTlak").append(dodaj);
 			var dodaj = "<center><p class=\"p4\">Diastolični tlak</p><br><p class=\"p5\">" + res[0].diastolic + " mmHg<br></p></center>";
 			$("#diaTlak").append(dodaj);
-			preglejTlak(res[0].systolic, res[0].diastolic);
+			preveriTlak(res[0].systolic, res[0].diastolic);
 		}
 	});
 	
@@ -294,7 +296,7 @@ function napolni (EHR) {
 	    success: function (res) {
 	        var dodaj = "<center><p class=\"p4\">Nasičenost krvi</p><br><p class=\"p5\">" + res[0].spO2 + " %<br></p></center>";
 			$("#kisik").append(dodaj);
-			preglejKisik(res[0].spO2);
+			preveriKisik(res[0].spO2);
 	    }
 	});
 	
@@ -309,7 +311,7 @@ function napolni (EHR) {
 	    	var temp = res[0].temperature.toString().substring(0,4);
 	        var dodaj = "<center><p class=\"p4\">Temperatura</p><br><p class=\"p5\">" + temp + " °C<br></p></center>";
 			$("#temperatura").append(dodaj);
-			preglejTemperaturo(temp);
+			preveriTemperaturo(temp);
 	    }
 	});
 	
@@ -412,7 +414,7 @@ function napolni (EHR) {
 // dobro: E4FFBC, srednjedobro: FFFDCE, slabo: FFC6B9
 // http://www.bloodpressureuk.org/BloodPressureandyou/Thebasics/Bloodpressurechart
 
-function preglejTlak(s, d) {
+function preveriTlak(s, d) {
 	if(s >= 140) {
 		$("#sisTlak").css("background-color", "#FFC6B9");
 	}
@@ -446,7 +448,7 @@ function preglejTlak(s, d) {
 	}
 }
 
-function preglejKisik(kisik) {
+function preveriKisik(kisik) {
 	if(kisik >= 100 || kisik < 90) {
 		$("#kisik").css("background-color", "#FFC6B9");
 	}
@@ -458,7 +460,7 @@ function preglejKisik(kisik) {
 	}
 }
 
-function preglejTemperaturo(t) {
+function preveriTemperaturo(t) {
 	var t = parseFloat(t);
 	if(t < 37.5 && t > 36) {
 		$("#temperatura").css("background-color", "#E4FFBC");

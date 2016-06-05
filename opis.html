@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <title>eZdravje :: 4. DN :: OIS 2015/2016</title>
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
+  <link href="knjiznice/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
   <style>
-    body {padding-top: 70px;}
+    body { font-family: 'Open Sans'; padding-top: 70px; }
   </style>
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
@@ -14,7 +16,7 @@
 <body>
 
   <!-- ZAČETEK: Menujska vrstica na vrhu spletne strani -->
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="navigacija">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menujska-vrstica">
@@ -22,7 +24,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">Status bolnika</a>
+        <a id="brand" class="navbar-brand" href="index.html">Status bolnika</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -45,7 +47,14 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
+            <p>Namen aplikacije je, da uporabnik hitro na podlagi barv vidi, kako dobri so njegovi vitalni znaki.<br>
+            <br>Legenda barv: 
+            <br>- zelena:  meritev je idealna
+            <br>- oranžna: meritev je srednje dobra
+            <br>- rdeča:   meritev je slaba
+            <br>
+            <br>Grafično so prikazane meritve krvnega tlaka skozi čas. Poleg grafa pa je še Twitter feed, kjer uporabnik lahko dobi splošne informacije in napotke, kako izboljšati svoj krvni tlak. Zvišan krvni tlak je namreč ena izmed bolj pogostih obolenj 'modernega' človeka.
+            </p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -55,7 +64,9 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).</p>
+            <p>Za prikaz <a href="http://www.twitter.com">Twitter</a> feeda sem uporabil kar njihovo <a href="https://dev.twitter.com/web/embedded-timelines">Embedded Timelines</a> orodje, ki zgenerira željen timeline primeren za JavaScript.
+            <br>Za določanje barv meritev sem uporabil več 'statičnih' virov: za <a href="http://www.bloodpressureuk.org/BloodPressureandyou/Thebasics/Bloodpressurechart">tlak</a>, za <a href="http://www.mayoclinic.org/symptoms/hypoxemia/basics/definition/sym-20050930">kisik</a> in za <a href="https://en.wikipedia.org/wiki/Human_body_temperature">temperaturo</a>.
+            </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
@@ -75,7 +86,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+            <p>Za prikaz meritev krvnega tlaka sem uporabil 'navaden' graf (d3.js, Line Chart), ker je za enostaven prikaz dveh linij najbolj primeren.</p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>

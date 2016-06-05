@@ -41,6 +41,16 @@ p {
     
 }
 
+.navbar li:hover {
+    background-color: #337ab7;
+}
+#brand:hover {
+    background-color: #337ab7;
+}
+
+#navigacija {
+    background-color: #FFFFFF;
+}
 #opcije {
     background-color: #FFFFFF;
 }
