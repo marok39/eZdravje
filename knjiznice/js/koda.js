@@ -32,7 +32,7 @@ function getSessionId() {
  * @return ehrId generiranega pacienta
  */
 
-// podatki za paciente
+// podatki za generirane paciente
 var imena = ["Pacient", "Pacient", "Pacient"];
 var priimki = ["Kronik", "Sportnik", "Otrok"];
 var datumiRojstva = ["1950-01-01T00:00", "1990-10-10T10:10", "2005-05-05T05:05"];
@@ -101,8 +101,6 @@ function generirajPodatke(stPacienta) {
 		    }
 		});
 	}
-
-    return ehrId;
 }
 
 //dodamo 10 meritev vitalnih znakov
@@ -222,7 +220,6 @@ function ponastavi() {
 // napolni 'okvircke' s podatki bolnika
 function napolni (EHR) {
 	var sessionId = getSessionId();
-	console.log("EHR v prikazi(EHR): " + EHR);
 	
 	// osnovniPodatki
 	$.ajax({
@@ -413,7 +410,6 @@ function napolni (EHR) {
 
 // dobro: E4FFBC, srednjedobro: FFFDCE, slabo: FFC6B9
 // http://www.bloodpressureuk.org/BloodPressureandyou/Thebasics/Bloodpressurechart
-
 function preveriTlak(s, d) {
 	if(s >= 140) {
 		$("#sisTlak").css("background-color", "#FFC6B9");
@@ -448,6 +444,7 @@ function preveriTlak(s, d) {
 	}
 }
 
+// http://www.mayoclinic.org/symptoms/hypoxemia/basics/definition/sym-20050930
 function preveriKisik(kisik) {
 	if(kisik >= 100 || kisik < 90) {
 		$("#kisik").css("background-color", "#FFC6B9");
@@ -460,6 +457,7 @@ function preveriKisik(kisik) {
 	}
 }
 
+// https://en.wikipedia.org/wiki/Human_body_temperature
 function preveriTemperaturo(t) {
 	var t = parseFloat(t);
 	if(t < 37.5 && t > 36) {

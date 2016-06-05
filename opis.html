@@ -50,7 +50,7 @@
             <p>Namen aplikacije je, da uporabnik hitro na podlagi barv vidi, kako dobri so njegovi vitalni znaki.<br>
             <br>Legenda barv: 
             <br>- zelena:  meritev je idealna
-            <br>- oranžna: meritev je srednje dobra
+            <br>- rumena: meritev je srednje dobra
             <br>- rdeča:   meritev je slaba
             <br>
             <br>Grafično so prikazane meritve krvnega tlaka skozi čas. Poleg grafa pa je še Twitter feed, kjer uporabnik lahko dobi splošne informacije in napotke, kako izboljšati svoj krvni tlak. Zvišan krvni tlak je namreč ena izmed bolj pogostih obolenj 'modernega' človeka.
@@ -64,7 +64,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p>Za prikaz <a href="http://www.twitter.com">Twitter</a> feeda sem uporabil kar njihovo <a href="https://dev.twitter.com/web/embedded-timelines">Embedded Timelines</a> orodje, ki zgenerira željen timeline primeren za JavaScript.
+            <p>Za prikaz <a href="http://www.twitter.com">Twitter</a> feeda sem uporabil kar njihovo <a href="https://dev.twitter.com/web/embedded-timelines">Embedded Timelines</a> orodje, ki generira željen widget za JavaScript.
             <br>Za določanje barv meritev sem uporabil več 'statičnih' virov: za <a href="http://www.bloodpressureuk.org/BloodPressureandyou/Thebasics/Bloodpressurechart">tlak</a>, za <a href="http://www.mayoclinic.org/symptoms/hypoxemia/basics/definition/sym-20050930">kisik</a> in za <a href="https://en.wikipedia.org/wiki/Human_body_temperature">temperaturo</a>.
             </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
@@ -76,7 +76,21 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
-            <p><strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.</p>
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <p>Master</p>
+                <p><img style="max-width:100%; max-height:100%" src="nacrti/master.PNG"></p>
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <p>Detail</p>
+                <p><img style="max-width:100%; max-height:100%" src="nacrti/detail.PNG"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-12">
+                <p>Ob pritisku na gumb 'Prikaži' se na podlagi vnešenega EHR prikaže status meritev bolnika, graf krvnega tlaka in Twitter feed o krvnem tlaku.</p>
+              </div>
+            </div>
             <!-- KONEC: Master/detail načrtovalski vzorec -->
           </div>
         </div>
